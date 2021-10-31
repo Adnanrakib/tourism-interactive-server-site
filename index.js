@@ -31,14 +31,15 @@ async function run(){
                               const booking = await cursor.toArray();
                               res.send(booking);
                     })
-                    //GET Single Service
-                    // app.get('/services/:id', async(req, res) =>{
-                    //           const id = req.params.id;
-                    //           console.log('getting specific service', id);
-                    //           const query = {_id: ObjectId(id)};
-                    //           const service = await servicesCollection.findOne(query);
-                    //           res.json(service);
-                    // })
+
+                    // GET Single Service
+                    app.get('/cart/:id', async(req, res) =>{
+                              const id = req.params.id;
+                              console.log('getting specific service', id);
+                              const query = {_id: ObjectId(id)};
+                              const service = await servicesCollection.findOne(query);
+                              res.json(services);
+                    })
 
 
 
@@ -47,17 +48,17 @@ async function run(){
                               const booking = req.body;
                               console.log('hit the post api', booking);
 
-                              // const service = {
-                              //           "img": "https://images.unsplash.com/photo-1526786220381-1d21eedf92bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-                              //           "name": "Italy vanice",
-                              //           "price": "Cost $300",
-                              //           "desc": "The Beautiful italy vacation Place Travel Services services are available to Members when they are Traveling.."
-                              // }
-
 
                               const result = await servicesCollection.insertOne(booking);
                               console.log(result);
                               res.json(result)
+                    })
+                    //Delete Api
+                    app.delete('/cart/: id', async(req, res) =>{
+                              const id = req.params.id;
+                              const query = {_id:ObjectId(id)};
+                              const result = await servicesCollection.deleteOne(query);
+                              res.json(result);
                     })
                  
           }
